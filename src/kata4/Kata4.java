@@ -1,20 +1,15 @@
 package kata4;
 
-import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Kata4 {
-    public static void main(String[] args) {
-        File file = new File ("C:\\");
-        String[] names = file.list();
-        print(file.listFiles(),"");
-    }
-
-    private static void print(File[] files,String indent) {
-        if(files == null) return;
-        for (File file : files) {
-            System.out.println(indent + (file.isDirectory()? "+" : "-" ) + file.getName());
-            if(!file.isDirectory() || file.isHidden()) continue;
-            print(file.listFiles(), " ");
-        }
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        String filename = "emailsfilev1.txt";
+        ArrayList<String> mailList = mailListReader.read(filename);
+        Histogram<String> histogram = mailHistogramBuilder.build(mailList);
+        HistogramDisplay histoDisplay = new HistogramDisplay(histogram);
+        histoDisplay.execute();
     }
 }
